@@ -5,9 +5,9 @@ namespace Aoc2019Net
 {
     internal abstract class Day
     {
-        public Day(int dayNumber)
+        protected Day()
         {
-            DayNumber = dayNumber;
+            DayNumber = int.Parse(GetType().Name.Substring(3));
         }
 
         public int DayNumber { get; }

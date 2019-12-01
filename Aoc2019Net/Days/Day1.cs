@@ -4,11 +4,6 @@ namespace Aoc2019Net.Days
 {
     internal sealed class Day1 : Day
     {
-        public Day1()
-            : base(1)
-        {
-        }
-
         protected override object SolvePart1(out object artifacts)
         {
             artifacts = null;
