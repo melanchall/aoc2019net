@@ -4,16 +4,9 @@ namespace Aoc2019Net.Days
 {
     internal sealed class Day1 : Day
     {
-        protected override object SolvePart1(out object artifacts)
-        {
-            artifacts = null;
-            return GetInputNumbers().Select(GetFuel).Sum();
-        }
+        protected override object SolvePart1() => GetInputNumbers().Select(GetFuel).Sum();
 
-        protected override object SolvePart2(object part1Artifacts)
-        {
-            return GetInputNumbers().Select(GetFuelRequirement).Sum();
-        }
+        protected override object SolvePart2() => GetInputNumbers().Select(GetFuelRequirement).Sum();
 
         private static int GetFuel(int mass) => mass / 3 - 2;
 

@@ -5,3 +5,4 @@
 ## Solutions
 
 [Day 1](https://github.com/melanchall/aoc2019net/blob/master/Aoc2019Net/Days/Day1.cs)
+[Day 2](https://github.com/melanchall/aoc2019net/blob/master/Aoc2019Net/Days/Day2.cs)

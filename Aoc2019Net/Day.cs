@@ -14,14 +14,14 @@ namespace Aoc2019Net
 
         public (object Part1, object Part2) Solve()
         {
-            var part1 = SolvePart1(out var part1Artifacts);
-            var part2 = SolvePart2(part1Artifacts);
-            return (part1, part2);
+            return (SolvePart1(), SolvePart2());
         }
 
-        protected abstract object SolvePart1(out object artifacts);
+        protected abstract object SolvePart1();
 
-        protected abstract object SolvePart2(object part1Artifacts);
+        protected abstract object SolvePart2();
+
+        protected string[] GetInputTokens(string delimiter) => File.ReadAllText(GetInputFilePath()).Split(delimiter);
 
         protected string[] GetInputLines() => File.ReadAllLines(GetInputFilePath());
 
