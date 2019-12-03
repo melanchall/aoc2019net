@@ -7,7 +7,7 @@ namespace Aoc2019Net
     {
         static void Main(string[] args)
         {
-            var day = new Day3();
+            var day = new Day4();
 
             Console.WriteLine($"Solving day {day.DayNumber}...");
             var solution = day.Solve();
