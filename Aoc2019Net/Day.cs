@@ -1,14 +1,17 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace Aoc2019Net
 {
-    internal abstract class Day
+    public abstract class Day
     {
         protected Day()
         {
             DayNumber = int.Parse(GetType().Name.Substring(3));
         }
+
+        public string Input { get; set; }
 
         public int DayNumber { get; }
 
@@ -21,9 +24,12 @@ namespace Aoc2019Net
 
         protected abstract object SolvePart2();
 
-        protected string[] GetInputTokens(string delimiter) => File.ReadAllText(GetInputFilePath()).Split(delimiter);
+        protected string[] GetInputTokens(string delimiter) => (Input ?? File.ReadAllText(GetInputFilePath())).Split(delimiter);
 
-        protected string[] GetInputLines() => File.ReadAllLines(GetInputFilePath());
+        protected string[] GetInputLines() => (Input != null ? Input.Split(Environment.NewLine) : File.ReadAllLines(GetInputFilePath()))
+            .Where(line => !string.IsNullOrWhiteSpace(line))
+            .Select(line => line.Trim())
+            .ToArray();
 
         protected int[] GetInputNumbers() => GetInputLines().Select(int.Parse).ToArray();
 

@@ -2,7 +2,7 @@
 
 namespace Aoc2019Net.Days
 {
-    internal sealed class Day2 : Day
+    public sealed class Day2 : Day
     {
         protected override object SolvePart1() => CalculateResult(GetInputNumbers(), noun: 12, verb: 2);
 

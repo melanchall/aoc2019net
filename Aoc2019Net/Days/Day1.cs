@@ -2,7 +2,7 @@
 
 namespace Aoc2019Net.Days
 {
-    internal sealed class Day1 : Day
+    public sealed class Day1 : Day
     {
         protected override object SolvePart1() => GetInputNumbers().Select(GetFuel).Sum();
 
