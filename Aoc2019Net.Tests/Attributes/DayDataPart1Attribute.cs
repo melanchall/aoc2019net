@@ -6,5 +6,10 @@
             : base(input, solution)
         {
         }
+
+        public DayDataPart1Attribute(object solution)
+            : this(null, solution)
+        {
+        }
     }
 }

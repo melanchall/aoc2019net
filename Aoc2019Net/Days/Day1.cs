@@ -1,12 +1,15 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Aoc2019Net.Days
 {
     public sealed class Day1 : Day
     {
-        protected override object SolvePart1() => GetInputNumbers().Select(GetFuel).Sum();
+        private static readonly string InputTokensDelimiter = Environment.NewLine;
 
-        protected override object SolvePart2() => GetInputNumbers().Select(GetFuelRequirement).Sum();
+        protected override object SolvePart1() => GetInputNumbers(InputTokensDelimiter).Select(GetFuel).Sum();
+
+        protected override object SolvePart2() => GetInputNumbers(InputTokensDelimiter).Select(GetFuelRequirement).Sum();
 
         private static int GetFuel(int mass) => mass / 3 - 2;
 

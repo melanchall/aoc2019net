@@ -4,7 +4,9 @@ namespace Aoc2019Net.Days
 {
     public sealed class Day2 : Day
     {
-        protected override object SolvePart1() => CalculateResult(GetInputNumbers(), noun: 12, verb: 2);
+        private const string InputTokensDelimiter = ",";
+
+        protected override object SolvePart1() => CalculateResult(GetInputNumbers(InputTokensDelimiter), noun: 12, verb: 2);
 
         protected override object SolvePart2()
         {
@@ -18,15 +20,13 @@ namespace Aoc2019Net.Days
             {
                 for (verb = minNounVerb; verb <= maxNounVerb && result != expectedResult; verb++)
                 {
-                    var numbers = GetInputNumbers();
+                    var numbers = GetInputNumbers(InputTokensDelimiter);
                     result = CalculateResult(numbers, noun, verb);
                 }
             }
 
             return 100 * (noun - 1) + (verb - 1);
         }
-
-        private new int[] GetInputNumbers() => GetInputTokens(",").Select(t => int.Parse(t.Trim())).ToArray();
 
         private static int CalculateResult(int[] numbers, int noun, int verb)
         {

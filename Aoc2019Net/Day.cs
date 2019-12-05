@@ -31,7 +31,7 @@ namespace Aoc2019Net
             .Select(line => line.Trim())
             .ToArray();
 
-        protected int[] GetInputNumbers() => GetInputLines().Select(int.Parse).ToArray();
+        protected int[] GetInputNumbers(string delimiter) => GetInputTokens(delimiter).Select(t => int.Parse(t.Trim())).ToArray();
 
         private string GetInputFilePath() => Path.Combine("Inputs", $"Day{DayNumber}.txt");
     }

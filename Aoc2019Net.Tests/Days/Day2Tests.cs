@@ -4,9 +4,9 @@ using NUnit.Framework;
 namespace Aoc2019Net.Tests.Days
 {
     [TestFixture]
-    [DayDataPart1(1605)]
-    [DayDataPart2(1102)]
-    public sealed class Day4Tests : DayTests<Day4Tests>
+    [DayDataPart1(3562624)]
+    [DayDataPart2(8298)]
+    public sealed class Day2Tests : DayTests<Day2Tests>
     {
     }
 }

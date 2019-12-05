@@ -45,7 +45,9 @@ namespace Aoc2019Net.Tests
             var dayType = typeof(Day).Assembly.GetTypes().FirstOrDefault(t => t.Name == dayClassName);
             var day = (Day)Activator.CreateInstance(dayType);
 
-            day.Input = input;
+            if (!string.IsNullOrWhiteSpace(input))
+                day.Input = input;
+
             return day.Solve();
         }
     }
