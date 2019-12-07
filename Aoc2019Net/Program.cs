@@ -7,13 +7,14 @@ namespace Aoc2019Net
     {
         static void Main(string[] args)
         {
-            var day = new Day6();
+            var day = new Day7();
 
             Console.WriteLine($"Solving day {day.DayNumber}...");
-            var solution = day.Solve();
+            var part1 = day.SolvePart1();
+            Console.WriteLine($"Part 1 solution: {part1}");
 
-            Console.WriteLine($"Part 1 solution: {solution.Part1}");
-            Console.WriteLine($"Part 2 solution: {solution.Part2}");
+            var part2 = day.SolvePart2();
+            Console.WriteLine($"Part 2 solution: {part2}");
 
             Console.WriteLine("Press any key to exit...");
             Console.ReadKey();

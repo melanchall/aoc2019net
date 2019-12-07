@@ -17,10 +17,10 @@ namespace Aoc2019Net.Days
 
         private static readonly Regex TurnRegex = new Regex($@"({string.Join("|", TurnOffsets.Keys)})(\d+)");
 
-        protected override object SolvePart1() => GetIntersections(out _, out _)
+        public override object SolvePart1() => GetIntersections(out _, out _)
             .Min(c => Math.Abs(c.X) + Math.Abs(c.Y));
 
-        protected override object SolvePart2() => GetIntersections(out var points1, out var points2)
+        public override object SolvePart2() => GetIntersections(out var points1, out var points2)
             .Min(c => points1.FirstOrDefault(p => p.X == c.X && p.Y == c.Y).Steps +
                       points2.FirstOrDefault(p => p.X == c.X && p.Y == c.Y).Steps);
 

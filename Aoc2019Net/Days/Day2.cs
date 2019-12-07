@@ -1,4 +1,4 @@
-﻿using System.Linq;
+﻿using Aoc2019Net.Common;
 
 namespace Aoc2019Net.Days
 {
@@ -6,9 +6,9 @@ namespace Aoc2019Net.Days
     {
         private const string InputTokensDelimiter = ",";
 
-        protected override object SolvePart1() => CalculateResult(GetInputNumbers(InputTokensDelimiter), noun: 12, verb: 2);
+        public override object SolvePart1() => CalculateResult(GetInputNumbers(InputTokensDelimiter), noun: 12, verb: 2);
 
-        protected override object SolvePart2()
+        public override object SolvePart2()
         {
             const int expectedResult = 19690720;
             const int minNounVerb = 0;
@@ -30,34 +30,9 @@ namespace Aoc2019Net.Days
 
         private static int CalculateResult(int[] numbers, int noun, int verb)
         {
-            const int addCommand = 1;
-            const int multiplyCommand = 2;
-            const int haltCommand = 99;
-
             numbers[1] = noun;
             numbers[2] = verb;
-
-            for (var i = 0; i < numbers.Length; i += 4)
-            {
-                var command = numbers[i];
-                if (command == haltCommand)
-                    break;
-
-                var xPosition = numbers[i + 1];
-                var yPosition = numbers[i + 2];
-                var resultPosition = numbers[i + 3];
-
-                switch (command)
-                {
-                    case addCommand:
-                        numbers[resultPosition] = numbers[xPosition] + numbers[yPosition];
-                        break;
-                    case multiplyCommand:
-                        numbers[resultPosition] = numbers[xPosition] * numbers[yPosition];
-                        break;
-                }
-            }
-
+            IntcodeComputer.ExecuteProgram(numbers, new IntcodeComputerParameters());
             return numbers[0];
         }
     }

@@ -6,7 +6,7 @@ namespace Aoc2019Net.Days
 {
     public sealed class Day6 : Day
     {
-        protected override object SolvePart1()
+        public override object SolvePart1()
         {
             var orbitsConnections = GetOrbitsConnections();
             var directOrbitsCount = orbitsConnections.Keys.Count;
@@ -23,7 +23,7 @@ namespace Aoc2019Net.Days
             return directOrbitsCount + indirectOrbitsCount;
         }
 
-        protected override object SolvePart2()
+        public override object SolvePart2()
         {
             const string from = "YOU";
             const string to = "SAN";

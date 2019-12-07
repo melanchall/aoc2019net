@@ -4,9 +4,9 @@ namespace Aoc2019Net.Days
 {
     public sealed class Day4 : Day
     {
-        protected override object SolvePart1() => Solve(largeGroupsForbidden: false);
+        public override object SolvePart1() => Solve(largeGroupsForbidden: false);
 
-        protected override object SolvePart2() => Solve(largeGroupsForbidden: true);
+        public override object SolvePart2() => Solve(largeGroupsForbidden: true);
 
         private object Solve(bool largeGroupsForbidden)
         {
