@@ -9,5 +9,7 @@
         public bool BreakOnOutput { get; set; }
 
         public int InputIndex { get; set; }
+
+        public bool ExtendProgram { get; set; }
     }
 }

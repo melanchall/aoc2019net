@@ -11,11 +11,11 @@ namespace Aoc2019Net.Days
 
         public override object SolvePart2() => GetInputNumbers(InputTokensDelimiter).Select(GetFuelRequirement).Sum();
 
-        private static int GetFuel(int mass) => mass / 3 - 2;
+        private static long GetFuel(long mass) => mass / 3 - 2;
 
-        private static int GetFuelRequirement(int mass)
+        private static long GetFuelRequirement(long mass)
         {
-            var total = 0;
+            var total = 0L;
 
             while (GetFuel(mass) >= 0)
             {

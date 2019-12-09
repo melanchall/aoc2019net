@@ -14,7 +14,7 @@ namespace Aoc2019Net.Days
             const int minNounVerb = 0;
             const int maxNounVerb = 99;
 
-            int result = 0, noun, verb = 0;
+            long result = 0, noun, verb = 0;
 
             for (noun = minNounVerb; noun <= maxNounVerb && result != expectedResult; noun++)
             {
@@ -28,7 +28,7 @@ namespace Aoc2019Net.Days
             return 100 * (noun - 1) + (verb - 1);
         }
 
-        private static int CalculateResult(int[] numbers, int noun, int verb)
+        private static long CalculateResult(long[] numbers, long noun, long verb)
         {
             numbers[1] = noun;
             numbers[2] = verb;

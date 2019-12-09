@@ -2,7 +2,7 @@
 {
     internal sealed class IntcodeComputerResult
     {
-        public IntcodeComputerResult(int[] outputs, bool halted, int stoppedAtIndex, int newInputIndex)
+        public IntcodeComputerResult(long[] outputs, bool halted, int stoppedAtIndex, int newInputIndex)
         {
             Outputs = outputs;
             Halted = halted;
@@ -10,7 +10,7 @@
             NewInputIndex = newInputIndex;
         }
 
-        public int[] Outputs { get; }
+        public long[] Outputs { get; }
 
         public bool Halted { get; }
 

@@ -9,7 +9,7 @@ namespace Aoc2019Net.Days
     {
         private sealed class AmplifierState
         {
-            public int[] Program { get; set; }
+            public long[] Program { get; set; }
 
             public List<int> Inputs { get; } = new List<int>();
 
@@ -42,7 +42,7 @@ namespace Aoc2019Net.Days
                     {
                         Inputs = new[] { phaseSettings[i], lastOutput }
                     });
-                    lastOutput = result.Outputs.Last();
+                    lastOutput = (int)result.Outputs.Last();
                 }
 
                 maxOutput = Math.Max(maxOutput, lastOutput);
@@ -91,7 +91,7 @@ namespace Aoc2019Net.Days
                             continue;
                         }
 
-                        state.LastOutput = result.Outputs.Last();
+                        state.LastOutput = (int)result.Outputs.Last();
                         state.StartIndex = result.StoppedAtIndex;
                         state.InputIndex = result.NewInputIndex;
                     }

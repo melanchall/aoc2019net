@@ -27,7 +27,7 @@ namespace Aoc2019Net
             .Select(line => line.Trim())
             .ToArray();
 
-        protected int[] GetInputNumbers(string delimiter) => GetInputTokens(delimiter).Select(t => int.Parse(t)).ToArray();
+        protected long[] GetInputNumbers(string delimiter) => GetInputTokens(delimiter).Select(t => long.Parse(t)).ToArray();
 
         protected string GetInput() => Input ?? File.ReadAllText(GetInputFilePath());
 

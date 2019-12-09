@@ -10,6 +10,7 @@ namespace Aoc2019Net.Common
         {
             public const int Position = 0;
             public const int Immediate = 1;
+            public const int Relative = 2;
         }
 
         private static class OpCode
@@ -22,86 +23,133 @@ namespace Aoc2019Net.Common
             public const int JumpIfFalse = 6;
             public const int LessThan = 7;
             public const int Equal = 8;
+            public const int RelativeBaseOffset = 9;
             public const int Halt = 99;
         }
 
-        public static IntcodeComputerResult ExecuteProgram(int[] program, IntcodeComputerParameters parameters)
+        private sealed class Context
+        {
+            public long RelativeBase { get; set; }
+        }
+
+        public static IntcodeComputerResult ExecuteProgram(long[] program, IntcodeComputerParameters parameters)
         {
             var inputs = parameters.Inputs;
-            var outputs = new List<int>();
             var inputIndex = parameters.InputIndex;
+            var instructionPointer = parameters.StartIndex;
+
+            var outputs = new List<long>();
             var halted = false;
-            var i = parameters.StartIndex;
             var exit = false;
 
-            for (; i < program.Length && !exit;)
+            var context = new Context();
+
+            for (; instructionPointer < program.Length && !exit;)
             {
-                var command = program[i].ToString().PadLeft(5, '0');
+                var command = program[instructionPointer].ToString().PadLeft(5, '0');
                 var opCode = int.Parse(command[^2..]);
                 if (opCode == OpCode.Halt)
                 {
                     halted = true;
+                    instructionPointer++;
                     break;
                 }
 
                 var modes = command[..^2].Select(c => int.Parse(c.ToString())).Reverse().ToArray();
 
-                var x = GetArgument(program, i + 1, modes[0]);
-                var y = GetArgument(program, i + 2, modes[1]);
+                var x = GetArgument(ref program, instructionPointer + 1, modes[0], context, parameters);
+                var y = GetArgument(ref program, instructionPointer + 2, modes[1], context, parameters);
 
                 switch (opCode)
                 {
                     case OpCode.Add:
-                        program[program[i + 3]] = x + y;
-                        i += 4;
+                        SetNumber(ref program, GetAddress((int)program[instructionPointer + 3], modes[2], context), x + y, parameters);
+                        instructionPointer += 4;
                         break;
                     case OpCode.Multiply:
-                        program[program[i + 3]] = x * y;
-                        i += 4;
+                        SetNumber(ref program, GetAddress((int)program[instructionPointer + 3], modes[2], context), x * y, parameters);
+                        instructionPointer += 4;
                         break;
                     case OpCode.Input:
-                        program[program[i + 1]] = inputs[inputIndex++];
-                        i += 2;
+                        SetNumber(ref program, GetAddress((int)program[instructionPointer + 1], modes[0], context), inputs[inputIndex++], parameters);
+                        instructionPointer += 2;
                         break;
                     case OpCode.Output:
                         outputs.Add(x);
-                        i += 2;
+                        instructionPointer += 2;
                         if (parameters.BreakOnOutput)
                             exit = true;
                         break;
                     case OpCode.JumpIfTrue:
-                        i = x != 0 ? y : i + 3;
+                        instructionPointer = x != 0 ? (int)y : instructionPointer + 3;
                         break;
                     case OpCode.JumpIfFalse:
-                        i = x == 0 ? y : i + 3;
+                        instructionPointer = x == 0 ? (int)y : instructionPointer + 3;
                         break;
                     case OpCode.LessThan:
-                        program[program[i + 3]] = Convert.ToInt32(x < y);
-                        i += 4;
+                        SetNumber(ref program, GetAddress((int)program[instructionPointer + 3], modes[2], context), Convert.ToInt32(x < y), parameters);
+                        instructionPointer += 4;
                         break;
                     case OpCode.Equal:
-                        program[program[i + 3]] = Convert.ToInt32(x == y);
-                        i += 4;
+                        SetNumber(ref program, GetAddress((int)program[instructionPointer + 3], modes[2], context), Convert.ToInt32(x == y), parameters);
+                        instructionPointer += 4;
+                        break;
+                    case OpCode.RelativeBaseOffset:
+                        context.RelativeBase += x;
+                        instructionPointer += 2;
+                        break;
+                    default:
+                        instructionPointer++;
                         break;
                 }
             }
 
-            return new IntcodeComputerResult(outputs.ToArray(), halted, i, inputIndex);
+            return new IntcodeComputerResult(outputs.ToArray(), halted, instructionPointer, inputIndex);
         }
 
-        private static int GetArgument(int[] numbers, int parameterIndex, int parameterMode)
+        private static int GetAddress(int baseAddress, int mode, Context context)
         {
-            if (parameterIndex >= numbers.Length)
-                return -1;
+            return mode == Mode.Relative ? (int)(baseAddress + context.RelativeBase) : baseAddress;
+        }
 
+        private static long GetArgument(ref long[] numbers, int parameterIndex, int parameterMode, Context context, IntcodeComputerParameters parameters)
+        {
             switch (parameterMode)
             {
                 case Mode.Immediate:
-                    return numbers[parameterIndex];
+                    return GetNumber(ref numbers, parameterIndex, parameters);
+                case Mode.Relative:
+                    return GetNumber(ref numbers, (int)(context.RelativeBase + numbers[parameterIndex]), parameters);
                 case Mode.Position:
                 default:
-                    return numbers[parameterIndex] < numbers.Length ? numbers[numbers[parameterIndex]] : -1;
+                    return GetNumber(ref numbers, parameterIndex < numbers.Length ? (int)numbers[parameterIndex] : 0, parameters);
             }
+        }
+
+        private static long GetNumber(ref long[] numbers, int index, IntcodeComputerParameters parameters)
+        {
+            if (index >= numbers.Length)
+            {
+                if (parameters.ExtendProgram)
+                    Array.Resize(ref numbers, index + 1);
+                else
+                    return -1;
+            }
+
+            return numbers[index];
+        }
+
+        private static void SetNumber(ref long[] numbers, int index, long number, IntcodeComputerParameters parameters)
+        {
+            if (index >= numbers.Length)
+            {
+                if (parameters.ExtendProgram)
+                    Array.Resize(ref numbers, (index + 1) * 2);
+                else
+                    return;
+            }
+
+            numbers[index] = number;
         }
     }
 }
