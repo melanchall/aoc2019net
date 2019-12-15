@@ -71,11 +71,16 @@ namespace Aoc2019Net.Common
                         instructionPointer += 4;
                         break;
                     case OpCode.Input:
-                        SetNumber(ref program, GetAddress((int)program[instructionPointer + 1], modes[0], context), inputs[inputIndex++], parameters);
+                        SetNumber(
+                            ref program,
+                            GetAddress((int)program[instructionPointer + 1], modes[0], context),
+                            parameters.GetInputValue?.Invoke() ?? inputs[inputIndex++],
+                            parameters);
                         instructionPointer += 2;
                         break;
                     case OpCode.Output:
                         outputs.Add(x);
+                        parameters.OnOutput?.Invoke(x);
                         instructionPointer += 2;
                         if (parameters.BreakOnOutput)
                             exit = true;
