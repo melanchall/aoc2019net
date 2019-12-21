@@ -15,6 +15,8 @@ namespace Aoc2019Net
 
         public int DayNumber { get; }
 
+        public object[] Parameters { get; set; }
+
         public abstract object SolvePart1();
 
         public abstract object SolvePart2();

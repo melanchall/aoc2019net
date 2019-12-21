@@ -11,17 +11,17 @@ namespace Aoc2019Net.Tests
 
         [Test]
         [TestCaseSource(nameof(GetDayDataPart1))]
-        public void SolvePart1(string input, object expectedSolution)
+        public void SolvePart1(string input, object expectedSolution, object[] parameters)
         {
-            var solution = GetDaySolution(input, true);
+            var solution = GetDaySolution(input, parameters, true);
             Assert.AreEqual(expectedSolution, solution, "Solution is wrong.");
         }
 
         [Test]
         [TestCaseSource(nameof(GetDayDataPart2))]
-        public void SolvePart2(string input, object expectedSolution)
+        public void SolvePart2(string input, object expectedSolution, object[] parameters)
         {
-            var solution = GetDaySolution(input, false);
+            var solution = GetDaySolution(input, parameters, false);
             Assert.AreEqual(expectedSolution, solution, "Solution is wrong.");
         }
 
@@ -34,10 +34,10 @@ namespace Aoc2019Net.Tests
         {
             return (from a in Attribute.GetCustomAttributes(typeof(T), typeof(TAttribute))
                     let dayDataAttribute = (TAttribute)a
-                    select new object[] { dayDataAttribute.Input, dayDataAttribute.Solution }).ToArray();
+                    select new object[] { dayDataAttribute.Input, dayDataAttribute.Solution, dayDataAttribute.Parameters }).ToArray();
         }
 
-        private object GetDaySolution(string input, bool part1)
+        private object GetDaySolution(string input, object[] parameters, bool part1)
         {
             var className = GetType().Name;
             var testsWordIndex = className.IndexOf("Tests");
@@ -47,6 +47,8 @@ namespace Aoc2019Net.Tests
 
             if (!string.IsNullOrWhiteSpace(input))
                 day.Input = input;
+
+            day.Parameters = parameters;
 
             return part1 ? day.SolvePart1() : day.SolvePart2();
         }

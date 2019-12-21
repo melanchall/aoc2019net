@@ -14,5 +14,7 @@ namespace Aoc2019Net.Tests.Attributes
         public string Input { get; }
 
         public object Solution { get; }
+
+        public object[] Parameters { get; set; }
     }
 }
