@@ -7,8 +7,8 @@
         {
         }
 
-        public DayDataPart2Attribute(object solution)
-            : this(null, solution)
+        public DayDataPart2Attribute(object myInputSolution)
+            : this(null, myInputSolution)
         {
         }
     }
