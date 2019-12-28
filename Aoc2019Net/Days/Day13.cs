@@ -15,11 +15,9 @@ namespace Aoc2019Net.Days
             public const int Ball = 4;
         }
 
-        private const string InputTokensDelimiter = ",";
-
         public override object SolvePart1()
         {
-            var program = GetInputNumbers(InputTokensDelimiter);
+            var program = GetInputIntcodeProgram();
             var result = IntcodeComputer.ExecuteProgram(program, new IntcodeComputerParameters
             {
                 ExtendProgram = true
@@ -30,7 +28,7 @@ namespace Aoc2019Net.Days
 
         public override object SolvePart2()
         {
-            var program = GetInputNumbers(InputTokensDelimiter);
+            var program = GetInputIntcodeProgram();
             program[0] = 2;
 
             var outputMode = 0;

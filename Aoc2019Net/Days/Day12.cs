@@ -14,7 +14,7 @@ namespace Aoc2019Net.Days
         public override object SolvePart1()
         {
             var (positions, velocities) = GetInitialState();
-            var steps = Convert.ToInt32((Parameters ?? new object[] { 1000 })[0]);
+            var steps = GetFirstParameter(1000);
 
             for (int s = 0; s < steps; s++)
             {

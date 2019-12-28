@@ -7,7 +7,7 @@ namespace Aoc2019Net.Days
     {
         public override object SolvePart1()
         {
-            var steps = Convert.ToInt32((Parameters ?? new object[] { 100 })[0]);
+            var steps = GetFirstParameter(100);
             var signal = GetInput().Select(c => int.Parse(c.ToString())).ToArray();
 
             var basePattern = new[] { 0, 1, 0, -1 };

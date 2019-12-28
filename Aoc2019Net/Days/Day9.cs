@@ -5,17 +5,15 @@ namespace Aoc2019Net.Days
 {
     public sealed class Day9 : Day
     {
-        private const string InputTokensDelimiter = ",";
-
         public override object SolvePart1() => GetOuput(1);
 
         public override object SolvePart2() => GetOuput(2);
 
         private long GetOuput(int input)
         {
-            var numbers = GetInputNumbers(InputTokensDelimiter);
+            var program = GetInputIntcodeProgram();
 
-            var result = IntcodeComputer.ExecuteProgram(numbers, new IntcodeComputerParameters
+            var result = IntcodeComputer.ExecuteProgram(program, new IntcodeComputerParameters
             {
                 Inputs = new[] { input },
                 ExtendProgram = true

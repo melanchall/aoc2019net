@@ -14,8 +14,6 @@ namespace Aoc2019Net.Days
             public const int OxygenStation = 2;
         }
 
-        private const string InputTokensDelimiter = ",";
-
         public override object SolvePart1()
         {
             var map = BuildMap(out var oxygenStationLocation);
@@ -44,7 +42,7 @@ namespace Aoc2019Net.Days
 
             steps[currentPoint] = currentSteps++;
 
-            foreach (var nextPoint in GetNearestLocations(currentPoint))
+            foreach (var nextPoint in currentPoint.GetNearestLocations())
             {
                 TraceRoutes(nextPoint, map, steps, currentSteps);
             }
@@ -52,7 +50,7 @@ namespace Aoc2019Net.Days
 
         private Dictionary<(int X, int Y), long> BuildMap(out (int X, int Y) oxygenStationLocation)
         {
-            var program = GetInputNumbers(InputTokensDelimiter);
+            var program = GetInputIntcodeProgram();
 
             var droidLocation = (X: 0, Y: 0);
             var nextDroidLocation = (X: 0, Y: 0);
@@ -68,7 +66,7 @@ namespace Aoc2019Net.Days
                     if (IsMapBuilt(map))
                         return 0;
 
-                    var possibleNextDroidLocations = GetNearestLocations(droidLocation)
+                    var possibleNextDroidLocations = droidLocation.GetNearestLocations()
                         .Select((l, i) => new { Location = l, Direction = i + 1 })
                         .Where(l => !map.ContainsKey(l.Location) || map[l.Location] != CellType.Wall)
                         .ToDictionary(l => l.Direction, l => l.Location);
@@ -102,15 +100,7 @@ namespace Aoc2019Net.Days
 
         private static bool IsMapBuilt(Dictionary<(int X, int Y), long> map) => map
             .Where(cell => cell.Value != CellType.Wall)
-            .SelectMany(cell => GetNearestLocations(cell.Key))
+            .SelectMany(cell => cell.Key.GetNearestLocations())
             .All(point => map.ContainsKey(point));
-
-        private static IEnumerable<(int X, int Y)> GetNearestLocations((int X, int Y) point) => new[]
-        {
-            (point.X, point.Y + 1),
-            (point.X, point.Y - 1),
-            (point.X - 1, point.Y),
-            (point.X + 1, point.Y)
-        };
     }
 }

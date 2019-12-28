@@ -22,12 +22,11 @@ namespace Aoc2019Net.Days
             public int LastOutput { get; set; }
         }
 
-        private const string InputTokensDelimiter = ",";
         private const int AmplifiersCount = 5;
 
         public override object SolvePart1()
         {
-            var program = GetInputNumbers(InputTokensDelimiter);
+            var program = GetInputIntcodeProgram();
 
             var phaseSettingsSets = GetPhaseSettingsSets(new int[0], new[] { 0, 1, 2, 3, 4 }).ToArray();
             var maxOutput = 0;
@@ -53,7 +52,7 @@ namespace Aoc2019Net.Days
 
         public override object SolvePart2()
         {
-            var program = GetInputNumbers(InputTokensDelimiter);
+            var program = GetInputIntcodeProgram();
 
             var phaseSettingsSets = GetPhaseSettingsSets(new int[0], new[] { 5, 6, 7, 8, 9 }).ToArray();
             var maxOutput = 0;

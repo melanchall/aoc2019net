@@ -8,8 +8,6 @@ namespace Aoc2019Net.Days
 {
     public sealed class Day11 : Day
     {
-        private const string InputTokensDelimiter = ",";
-
         private static readonly Dictionary<(int, int), (int, int)> LeftTurns = new Dictionary<(int, int), (int, int)>
         {
             [(0, 1)] = (-1, 0),
@@ -62,7 +60,7 @@ namespace Aoc2019Net.Days
 
         private ICollection<(int X, int Y)> GetPaintedPanels(int startColor, out Dictionary<(int X, int Y), int> colors)
         {
-            var program = GetInputNumbers(InputTokensDelimiter);
+            var program = GetInputIntcodeProgram();
 
             var position = (X: 0, Y: 0);
             var outputMode = 0;
