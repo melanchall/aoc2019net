@@ -5,7 +5,7 @@ namespace Aoc2019Net.Tests.Days
 {
     [TestFixture]
     [DayDataPart1(14332)]
-    [DayDataPart2(null)]
+    [DayDataPart2(1034009)]
     public sealed class Day17Tests : DayTests<Day17Tests>
     {
     }
